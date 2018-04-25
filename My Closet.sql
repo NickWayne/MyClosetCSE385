@@ -1,0 +1,64 @@
+﻿USE master
+GO
+/****** Object:  Database AP     ******/
+IF DB_ID('MyCloset') IS NOT NULL
+DROP 
+DATABASE MyCloset
+GO
+CREATE DATABASE MyCloset
+GO
+USE MyCloset
+GO
+
+CREATE TABLE [Users] (
+[UserID]		INTEGER		IDENTITY(1,1)	PRIMARY KEY	NOT NULL, 	
+[Fname]			NVARCHAR(50)	NOT NULL,
+[Lname]			NVARCHAR(50)	NOT NULL,
+[PhoneNumber]	VARCHAR(30)		NOT NULL,
+[Email]			NVARCHAR(320)	NOT NULL,
+[Username]		VARCHAR(50)		NOT NULL,
+[Password]		VARCHAR(50)
+)
+GO
+
+CREATE TABLE [ClothingCategories] (
+[CategoryID]	INTEGER		IDENTITY(1,1)	PRIMARY KEY	NOT NULL,
+[Name]			VARCHAR(50)	NOT NULL
+)
+GO
+
+CREATE TABLE [ClothingSubCategories] (
+[SubCatID]		INTEGER		IDENTITY(1,1)			PRIMARY KEY	NOT NULL,
+[CategoryID]	INTEGER		FOREIGN KEY REFERENCES	ClothingCategories(CategoryID),
+[Name]			VARCHAR(50)	NOT NULL
+)
+GO
+
+CREATE TABLE [ClothingItems] (
+[ClothingID]	INTEGER			IDENTITY(1,1)	PRIMARY KEY	NOT NULL,
+[SubCatID]		INTEGER			FOREIGN KEY REFERENCES ClothingSubCategories(SubCatID),
+[UserID]		INTEGER			FOREIGN KEY REFERENCES Users(UserID),
+[Name]			VARCHAR(50)		NOT NULL,
+[Description]	VARCHAR(MAX)	NOT NULL,
+[Color]			VARCHAR(50)		NOT NULL,
+[Size]			VARCHAR(50)		NOT NULL,
+[Condition]		VARCHAR(50)		NOT	NULL,
+[Picture]		NVARCHAR(100)	NOT	NULL
+)
+GO
+
+CREATE TABLE [UserRatings] (
+[UserID]		INTEGER			FOREIGN KEY REFERENCES Users(UserID),
+[ClothingID]	INTEGER			FOREIGN KEY REFERENCES ClothingItems(ClothingID),
+[Rating]		INTEGER			NOT NULL,
+[Description]	VARCHAR(200)	Default(''),
+PRIMARY KEY (UserID,ClothingID)
+
+)
+GO
+CREATE TABLE [UserFavorites] (
+[UserID]		INTEGER FOREIGN KEY REFERENCES		Users(UserID),
+[ClothingID]	INTEGER FOREIGN KEY REFERENCES ClothingItems(ClothingID),
+PRIMARY KEY (UserID,ClothingID)
+)
+GO
