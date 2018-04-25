@@ -1,0 +1,1 @@
+﻿cookies.add("name", "Nick Wayne")
