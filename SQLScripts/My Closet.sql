@@ -1,4 +1,4 @@
-﻿USE master
+USE master
 GO
 /****** Object:  Database MyCloset     ******/
 IF DB_ID('MyCloset') IS NOT NULL
@@ -183,4 +183,32 @@ AS
 	FROM Users
 	WHERE Username = @Username
 RETURN 0
+
 GO
+
+CREATE PROCEDURE [dbo].[spDeleteClothingItem]
+	@ClothingID	 INT
+
+AS
+	DELETE FROM ClothingItems WHERE ClothingID = @ClothingID
+
+GO 
+
+CREATE PROCEDURE [dbo].[spUpdateClothingItem]
+	@ClothingID	 INT,
+	@SubCatID    INT,          
+	@UserID      INT,           
+	@Name        VARCHAR(50),  
+	@Description VARCHAR(MAX), 
+	@Color       VARCHAR(50),  
+	@Size        VARCHAR(50),  
+	@Condition   VARCHAR(50),
+	@Picture     NVARCHAR(MAX)
+AS
+	IF NOT EXISTS (SELECT NULL FROM ClothingItems WHERE ClothingID = @ClothingID) BEGIN
+	UPDATE ClothingItems 
+	SET SubCatID = @SubCatID,UserID = @UserID,Name = @Name, Description= @Description,
+		Color = @Color, Size = @Size ,Condition = @Condition,Picture = @Picture     	
+		WHERE Clothing = @ClothingID
+	END
+
