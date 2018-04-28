@@ -222,7 +222,7 @@ GO
 
 CREATE PROCEDURE [dbo].[spAddOrRemoveFavorite]
     @UserID			INT,
-    @ClothingID		INT,
+    @ClothingID		INT
 AS
     IF NOT EXISTS ( SELECT NULL
 					FROM UserRatings
@@ -280,11 +280,7 @@ AS
             UserID,
             Name,
             Description,
-            Picture,
-            [Category] =    SELECT CategoryID
-                            FROM ClothingSubCategories s
-                                JOIN ClothingItems i
-                                    ON (s.SubCatID = i.SubCatID)
+            Picture
     FROM ClothingItems
 GO
 

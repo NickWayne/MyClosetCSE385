@@ -35,13 +35,44 @@ public class MyClosetAPI : System.Web.Services.WebService{
     #endregion
 
     //=== Web Service Methods Follow Below
-    [WebMethod(Description = "Gets a set number of clothing items to populate the front page")]
-    public void getClothingItems(int count, string filter)
+    [WebMethod(Description = "Add a user to the database")]
+    public void addUser(string Fname, string Lname, string phone, string email, string username, string password)
     {
-        filter = filter.Trim();
-        addParam("@filter", filter);
-        addParam("@count", count);
-        serializeDataTable(sqlExec("spGetCustomersByFilter"));
+        addParam("@Fname", Fname);
+        addParam("@Lname", Lname);
+        addParam("@PhoneNumber", phone);
+        addParam("@Email", email);
+        addParam("@Username", username);
+        addParam("@Password", password);
+        serializeDataTable(sqlExec("spAddUser"));
+    }
+
+    [WebMethod(Description = "Add a clothing item to the database")]
+    public void addClothingItem(int subcat, int userid, string name, string description, string color, string size, string condition, string picture)
+    {
+        addParam("@SubCatID", subcat);
+        addParam("@UserID", userid);
+        addParam("@Name", name);
+        addParam("@Description", description);
+        addParam("@Color", color);
+        addParam("@Size", size);
+        addParam("@Condition", condition);
+        addParam("@Picture", picture);
+        serializeDataTable(sqlExec("spAddClothingItem"));
+    }
+
+    [WebMethod(Description = "Get the userid from the username and password")]
+    public void getUserID(string Fname, string Lname, string phone, string email, string username, string password)
+    {
+        addParam("@Username", username);
+        addParam("@Password", password);
+        serializeDataTable(sqlExec("spGetUserID"));
+    }
+
+    [WebMethod(Description = "Get the clothing items int the db")]
+    public void getClothingItems()
+    {
+        serializeDataTable(sqlExec("spGetAllClothing"));
     }
 
 }
