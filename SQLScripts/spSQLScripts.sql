@@ -20,7 +20,7 @@ CREATE PROCEDURE [dbo].[spAddClothingItem]
 	@Color       VARCHAR(50),  
 	@Size        VARCHAR(50),  
 	@Condition   VARCHAR(50),
-	@Picture     NVARCHAR(100)
+	@Picture     NVARCHAR(MAX)
 AS
 	INSERT INTO ClothingItems(SubCatID, UserID, Name, Description, Color, Size, Condition, Picture)
 	VALUES (@SubCatID, @UserID, @Name, @Description, @Color, @Size, @Condition, @Picture)

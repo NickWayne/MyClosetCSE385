@@ -43,7 +43,7 @@ CREATE TABLE [ClothingItems] (
 [Color]			VARCHAR(50)		NOT NULL,
 [Size]			VARCHAR(50)		NOT NULL,
 [Condition]		VARCHAR(50)		NOT	NULL,
-[Picture]		NVARCHAR(100)	NOT	NULL
+[Picture]		NVARCHAR(MAX)	NOT	NULL
 )
 GO
 
