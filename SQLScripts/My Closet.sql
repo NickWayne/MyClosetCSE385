@@ -157,10 +157,9 @@ AS
 	IF NOT EXISTS(SELECT NULL FROM Users WHERE Email = @Email OR Username = @Username) BEGIN
 		INSERT INTO Users ([Fname], [Lname], [PhoneNumber],	[Email], [Username], [Password]) VALUES
 			(@Fname, @Lname, @PhoneNumber, @Email, @Username, @Password)
-		RETURN 'TRUE'
-		END
-	ELSE BEGIN
-		RETURN 'FALSE'
+		RETURN 1
+	END ELSE BEGIN
+		RETURN 0
 	END
 GO
 
@@ -175,11 +174,10 @@ CREATE PROCEDURE [dbo].[spAddClothingItem]
 	@Condition   VARCHAR(50),
 	@Picture     NVARCHAR(100)
 AS
-	INSERT INTO ClothingItems(SubCatID, UserID, Name, Description, Color, Size, Condition, Picture)
+	INSERT INTO ClothingItems([SubCatID], [UserID], [Name], [Description], [Color], [Size], [Condition], [Picture])
 	VALUES (@SubCatID, @UserID, @Name, @Description, @Color, @Size, @Condition, @Picture)
-RETURN 0	
+RETURN 1
 GO
-
 
 CREATE PROCEDURE [dbo].[spGetUserID]
 	@Username	VARCHAR(50)
@@ -223,8 +221,10 @@ AS
 GO
 
 CREATE PROCEDURE [dbo].[spAddOrRemoveFavorite]
-    @UserID     INT,
-    @ClothingID INT
+    @UserID			INT,
+    @ClothingID		INT,
+	@Rating			INT,
+	@Description	VARCHAR(200)
 AS
     IF NOT EXISTS ( SELECT NULL
 					FROM UserRatings
