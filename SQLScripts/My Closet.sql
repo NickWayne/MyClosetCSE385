@@ -209,6 +209,6 @@ AS
 	UPDATE ClothingItems 
 	SET SubCatID = @SubCatID,UserID = @UserID,Name = @Name, Description= @Description,
 		Color = @Color, Size = @Size ,Condition = @Condition,Picture = @Picture     	
-		WHERE Clothing = @ClothingID
+		WHERE ClothingID = @ClothingID
 	END
 
