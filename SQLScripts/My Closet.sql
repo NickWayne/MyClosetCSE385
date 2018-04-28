@@ -215,3 +215,40 @@ AS
 		
 		WHERE Clothing = @ClothingID
 	END 
+    
+CREATE PROCEDURE [dbo].[spAddOrRemoveFavorite]
+    @UserID     INT,
+    @ClothingID INT
+AS
+    IF NOT EXISTS ( SELECT NULL
+					FROM UserRatings
+					WHERE	UserID = @UserID AND
+							ClothingID = @ClothingID
+					) BEGIN
+        INSERT INTO UserFavories (UserID, ClothingID, Rating, [Description])
+        VALUES (@UserID, @ClothingID, @Rating, @Description)
+	END ELSE BEGIN
+        DELETE FROM UserFavorites
+        WHERE UserID = @UserID AND ClothingID = @ClothingID
+	END
+RETURN 1
+GO
+
+CREATE PROCEDURE [dbo].[sp.AddRating]
+    @UserID         INT,
+    @ClothingID     INT,
+    @Rating         INT,
+    @Description    VARCHAR(200)
+AS
+	IF NOT EXISTS ( SELECT NULL
+					FROM UserRatings
+					WHERE	UserID = @UserID AND
+							ClothingID = @ClothingID
+					) BEGIN
+        INSERT INTO UserRatings (UserID, ClothingID, Rating, [Description])
+        VALUES (@UserID, @ClothingID, @Rating, @Description)
+	END ELSE BEGIN
+		RETURN 0;
+	END
+RETURN 1
+GO
