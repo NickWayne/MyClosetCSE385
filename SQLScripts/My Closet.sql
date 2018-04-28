@@ -73,14 +73,12 @@ INSERT INTO Users (FName, LName, PhoneNumber, Email, Username, [Password]) VALUE
     ('Alex','Kwon','513-795-3644','kwonw@miamioh.edu','AlexNull','necnyc'),
     ('Yichen','Wang','513-593-5726','wangy99@miamioh.edu','YichenNull','321ssap');
 GO
-
 INSERT INTO ClothingCategories ([Name]) VALUES
     ('Women Summer'),
     ('Women Winter'),
     ('Men Summer'),
     ('Men Winter');
 GO
-
 INSERT INTO ClothingSubCategories (CategoryID, [Name]) VALUES
     (1, 'Skirts'),
     (1, 'Dresses'),
@@ -104,11 +102,11 @@ INSERT INTO ClothingSubCategories (CategoryID, [Name]) VALUES
     (4, 'Coats'),
     (4, 'Boots'),
     (4, 'Hats'),
-    (4, 'Sweaters');
+    (4, 'Sweaters');   
 GO
     
-INSERT INTO ClothingItems(SubCatID,UserID,Name,Description,Color,Size,Condition,Picture)
-VALUES(2, 1, 'Button-Down Denim Mini Dress',
+    INSERT INTO ClothingItems(SubCatID,UserID,Name,Description,Color,Size,[Condition],Picture)
+    VALUES(2, 1, 'Button-Down Denim Mini Dress',
 	  'Built from a washed denim in a button-down construction with a defined waist. ',
 	  'Green','6','brand new',
 	  'https://images.urbanoutfitters.com/is/image/UrbanOutfitters/45942638_030_b?$xlarge$&hei=900&qlt=80&fit=constrain'),
@@ -126,7 +124,25 @@ VALUES(2, 1, 'Button-Down Denim Mini Dress',
 	  (10, 4, 'Timberland boots',
 	  'Original + iconic wheat boot from the experts at Timberland. ',
 	  'yellow','9','brand new',
-	  'https://images.urbanoutfitters.com/is/image/UrbanOutfitters/26847640_016_d?$medium$&qlt=80&fit=constrain')
+	  'https://images.urbanoutfitters.com/is/image/UrbanOutfitters/26847640_016_d?$medium$&qlt=80&fit=constrain');
+GO
+      
+INSERT INTO UserFavorites (UserID, ClothingID) VALUES
+	(1,1),
+	(2,1),
+	(2,2),
+	(2,3),
+	(2,4),
+	(3,4),
+	(4,2);
+GO
+
+INSERT INTO UserRatings (UserID, ClothingID, Rating, [Description]) VALUES
+	(1,1,5,'Love it!'),
+	(2,1,7,'Is this for sale by chance?'),
+	(2,3, 9, 'This is such a great color.'),
+	(3,4,10,'Where can I get this?'),
+	(4,2,7,'This is one of my favorite items you own.');
 GO
 
 --###################################### Stored Procedures ####################################################
