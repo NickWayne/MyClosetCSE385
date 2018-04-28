@@ -223,16 +223,14 @@ GO
 CREATE PROCEDURE [dbo].[spAddOrRemoveFavorite]
     @UserID			INT,
     @ClothingID		INT,
-	@Rating			INT,
-	@Description	VARCHAR(200)
 AS
     IF NOT EXISTS ( SELECT NULL
 					FROM UserRatings
 					WHERE	UserID = @UserID AND
 							ClothingID = @ClothingID
 					) BEGIN
-        INSERT INTO UserFavories (UserID, ClothingID, Rating, [Description])
-        VALUES (@UserID, @ClothingID, @Rating, @Description)
+        INSERT INTO UserFavories (UserID, ClothingID)
+        VALUES (@UserID, @ClothingID)
 	END ELSE BEGIN
         DELETE FROM UserFavorites
         WHERE UserID = @UserID AND ClothingID = @ClothingID
@@ -258,3 +256,43 @@ AS
 	END
 RETURN 1
 GO
+
+CREATE PROCEDURE [dbo].[spGetCategories]
+AS
+    SELECT Name
+    FROM ClothingCategories
+RETURN 1
+GO
+
+CREATE PROCEDURE [dbo].[spGetSubCategories]
+    @CategoryID INT
+AS
+    SELECT Name
+    FROM ClothingCategories
+    WHERE CategoryID = @CategoryID
+RETURN 1
+GO
+    
+-- get all clothing items
+CREATE PROCEDURE [dbo].[spGetAllClothing]
+AS
+    SELECT  SubCatID,
+            UserID,
+            Name,
+            Description,
+            Picture,
+            [Category] =    SELECT CategoryID
+                            FROM ClothingSubCategories s
+                                JOIN ClothingItems i
+                                    ON (s.SubCatID = i.SubCatID)
+    FROM ClothingItems
+GO
+
+-- get user's favorites
+-- CREATE PROCEDURE [dbo].[spGetUserFavoritedClothing]
+
+-- get user's clothing items
+-- CREATE PROCEDURE [dbo].[spGetUserClothing]
+
+-- get clothing item
+-- CREATE PROCEDURE [dbo].[spGetSpecificClothing]
