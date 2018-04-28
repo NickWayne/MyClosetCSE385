@@ -154,9 +154,11 @@ CREATE PROCEDURE [dbo].[spAddUser]
 	@Username    VARCHAR (50),  
 	@Password    VARCHAR (50)
 AS
-	INSERT INTO Users(Fname, Lname, PhoneNumber, Email, Username, Password)
-	VALUES (@Fname, @Lname,@PhoneNumber, @Email, @Username, @Password)
-RETURN 0	
+	IF NOT EXISTS(SELECT NULL FROM Users WHERE Email = @Email OR Username = @Username) BEGIN
+		INSERT INTO Users ([Fname], [Lname], [PhoneNumber],	[Email], [Username], [Password]) VALUES
+			(@Fname, @Lname, @PhoneNumber, @Email, @Username, @Password)
+			
+		END
 GO
 
 
@@ -215,7 +217,8 @@ AS
 		
 		WHERE Clothing = @ClothingID
 	END 
-    
+GO
+
 CREATE PROCEDURE [dbo].[spAddOrRemoveFavorite]
     @UserID     INT,
     @ClothingID INT
