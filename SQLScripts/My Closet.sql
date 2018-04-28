@@ -157,8 +157,11 @@ AS
 	IF NOT EXISTS(SELECT NULL FROM Users WHERE Email = @Email OR Username = @Username) BEGIN
 		INSERT INTO Users ([Fname], [Lname], [PhoneNumber],	[Email], [Username], [Password]) VALUES
 			(@Fname, @Lname, @PhoneNumber, @Email, @Username, @Password)
-			
+		RETURN 'TRUE'
 		END
+	ELSE BEGIN
+		RETURN 'FALSE'
+	END
 GO
 
 
@@ -215,7 +218,7 @@ AS
 	SET SubCatID = @SubCatID,UserID = @UserID,Name = @Name, Description= @Description,
 		Color = @Color, Size = @Size ,Condition = @Condition,Picture = @Picture     
 		
-		WHERE Clothing = @ClothingID
+		WHERE ClothingID = @ClothingID
 	END 
 GO
 
