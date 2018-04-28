@@ -190,7 +190,10 @@ CREATE PROCEDURE [dbo].[spDeleteClothingItem]
 	@ClothingID	 INT
 
 AS
+	IF EXISTS (SELECT NULL FROM ClothingItems WHERE ClothingID = @ClothingID) BEGIN
+
 	DELETE FROM ClothingItems WHERE ClothingID = @ClothingID
+	END
 
 GO 
 
@@ -205,10 +208,10 @@ CREATE PROCEDURE [dbo].[spUpdateClothingItem]
 	@Condition   VARCHAR(50),
 	@Picture     NVARCHAR(MAX)
 AS
-	IF NOT EXISTS (SELECT NULL FROM ClothingItems WHERE ClothingID = @ClothingID) BEGIN
+	IF EXISTS (SELECT NULL FROM ClothingItems WHERE ClothingID = @ClothingID) BEGIN
 	UPDATE ClothingItems 
 	SET SubCatID = @SubCatID,UserID = @UserID,Name = @Name, Description= @Description,
-		Color = @Color, Size = @Size ,Condition = @Condition,Picture = @Picture     	
-		WHERE ClothingID = @ClothingID
-	END
-
+		Color = @Color, Size = @Size ,Condition = @Condition,Picture = @Picture     
+		
+		WHERE Clothing = @ClothingID
+	END 
