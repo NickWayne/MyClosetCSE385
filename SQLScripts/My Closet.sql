@@ -1,4 +1,4 @@
-USE master
+﻿ master
 GO
 /****** Object:  Database MyCloset     ******/
 IF DB_ID('MyCloset') IS NOT NULL
@@ -196,9 +196,9 @@ CREATE PROCEDURE [dbo].[spDeleteClothingItem]
 
 AS
 	IF EXISTS (SELECT NULL FROM ClothingItems WHERE ClothingID = @ClothingID) BEGIN
-
 	DELETE FROM ClothingItems WHERE ClothingID = @ClothingID
-	END
+	return 1
+	END ELSE return 0
 
 GO 
 
@@ -217,9 +217,9 @@ AS
 	UPDATE ClothingItems 
 	SET SubCatID = @SubCatID,UserID = @UserID,Name = @Name, Description= @Description,
 		Color = @Color, Size = @Size ,Condition = @Condition,Picture = @Picture     
-		
-		WHERE ClothingID = @ClothingID
-	END 
+	WHERE ClothingID = @ClothingID
+	return 1
+	END ELSE return 0
 GO
 
 CREATE PROCEDURE [dbo].[spAddOrRemoveFavorite]
