@@ -1,4 +1,4 @@
-﻿ master
+﻿USE master
 GO
 /****** Object:  Database MyCloset     ******/
 IF DB_ID('MyCloset') IS NOT NULL
@@ -268,7 +268,7 @@ CREATE PROCEDURE [dbo].[spGetSubCategories]
     @CategoryID INT
 AS
     SELECT Name
-    FROM ClothingCategories
+    FROM ClothingSubCategories
     WHERE CategoryID = @CategoryID
 RETURN 1
 GO
@@ -276,19 +276,65 @@ GO
 -- get all clothing items
 CREATE PROCEDURE [dbo].[spGetAllClothing]
 AS
-    SELECT  SubCatID,
-            UserID,
-            Name,
-            Description,
-            Picture
-    FROM ClothingItems
+    SELECT  c.CategoryID,
+            i.SubCatID,
+            i.Name,
+            i.Description,
+            i.Picture
+    FROM ClothingItems i
+        JOIN ClothingSubCategories c
+            ON (c.SubCatID = i.SubCatID)
 GO
 
 -- get user's favorites
--- CREATE PROCEDURE [dbo].[spGetUserFavoritedClothing]
+CREATE PROCEDURE [dbo].[spGetUserFavoritedClothing]
+	@UserID INT
+AS
+    SELECT  c.CategoryID,
+			i.SubCatID,
+            i.UserID,
+			i.Name,
+            i.Description,
+            i.Picture
+    FROM ClothingItems i
+		JOIN ClothingSubCategories c
+			ON (c.SubCatID = i.SubCatID)
+		JOIN UserFavorites f
+			ON (i.ClothingID = f.ClothingID)
+	WHERE f.UserID = @UserID
+GO
 
 -- get user's clothing items
--- CREATE PROCEDURE [dbo].[spGetUserClothing]
+CREATE PROCEDURE [dbo].[spGetUserClothing]
+	@UserID INT
+AS
+    SELECT  c.CategoryID,
+			i.SubCatID,
+            i.UserID,
+			i.Name,
+            i.Description,
+            i.Picture
+    FROM ClothingItems i
+		JOIN ClothingSubCategories c
+			ON (c.SubCatID = i.SubCatID)
+	WHERE i.UserID = @UserID
+GO
 
 -- get clothing item
--- CREATE PROCEDURE [dbo].[spGetSpecificClothing]
+CREATE PROCEDURE [dbo].[spGetSpecificClothing]
+	@ClothingID INT
+AS
+    SELECT  c.CategoryID,
+			i.SubCatID,
+            i.UserID,
+			i.Name,
+            i.Description,
+			i.Color,
+			i.Size,
+			i.Condition,
+            i.Picture
+    FROM ClothingItems i
+		JOIN ClothingSubCategories c
+			ON (c.SubCatID = i.SubCatID)
+	WHERE i.ClothingID = @ClothingID
+GO
