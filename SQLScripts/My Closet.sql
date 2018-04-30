@@ -211,15 +211,20 @@ GO
 --This is what is called when we want to delete an article of clothing from the 
 --database. Returns 1 (true) if successfully deleted, 0 otherwise
 CREATE PROCEDURE [dbo].[spDeleteClothingItem]
-	@ClothingID	 INT
-
+	@ClothingID	 INT,
+	@UserID		 INT
 AS
-	IF EXISTS (SELECT NULL FROM ClothingItems WHERE ClothingID = @ClothingID) BEGIN
+	IF EXISTS (SELECT NULL FROM ClothingItems WHERE ClothingID = @ClothingID) 
+	AND EXISTS (SELECT NULL FROM Users WHERE UserID = @UserID) BEGIN
+	
+	DELETE FROM UserRatings WHERE ClothingID = @ClothingID
+	DELETE FROM UserFavorites WHERE ClothingID = @ClothingID
 	DELETE FROM ClothingItems WHERE ClothingID = @ClothingID
 	return 1
 	END ELSE return 0
 
 GO 
+
 
 --This procedure allows us to update a specific article of clothing if something about it
 --changes. Returns 1 if successfully updated, 0 if not.
@@ -234,14 +239,22 @@ CREATE PROCEDURE [dbo].[spUpdateClothingItem]
 	@Condition   VARCHAR(50),
 	@Picture     NVARCHAR(MAX)
 AS
-	IF EXISTS (SELECT NULL FROM ClothingItems WHERE ClothingID = @ClothingID) BEGIN
+	IF EXISTS (SELECT NULL 
+			   FROM ClothingItems c JOIN Users u ON  c.UserID = u.UserID
+			   WHERE ClothingID = @ClothingID) BEGIN
 	UPDATE ClothingItems 
-	SET SubCatID = @SubCatID,UserID = @UserID,Name = @Name, Description= @Description,
-		Color = @Color, Size = @Size ,Condition = @Condition,Picture = @Picture     
+	SET SubCatID = isNULL(@SubCatID, SubCatID),
+		Name = isNULL(@Name, Name),
+		Description= isNULL(@Description,Description),
+		Color = isNULL(@Color, Color),
+		Size = isNULL(@Size ,Size),
+		Condition = isNULL(@Condition, Condition),
+		Picture = isNULL(@Picture,Picture)     
 	WHERE ClothingID = @ClothingID
 	return 1
 	END ELSE return 0
 GO
+
 
 --This allows users to add (or remove) a favorite on an article of clothing.
 --Will always return 1 saying that it was successful 
