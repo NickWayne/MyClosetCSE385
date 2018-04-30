@@ -11,6 +11,8 @@ GO
 USE MyCloset
 GO
 
+
+/******* Object: Table Users ***********/
 CREATE TABLE [Users] (
 [UserID]		INTEGER		IDENTITY(1,1)	PRIMARY KEY	NOT NULL, 	
 [Fname]			NVARCHAR(50)	NOT NULL,
@@ -22,12 +24,14 @@ CREATE TABLE [Users] (
 )
 GO
 
+/******* Object: Table Clothing Categories ***********/
 CREATE TABLE [ClothingCategories] (
 [CategoryID]	INTEGER		IDENTITY(1,1)	PRIMARY KEY	NOT NULL,
 [Name]			VARCHAR(50)	NOT NULL
 )
 GO
 
+/******* Object: Table Sub categories ***********/
 CREATE TABLE [ClothingSubCategories] (
 [SubCatID]		INTEGER		IDENTITY(1,1)			PRIMARY KEY	NOT NULL,
 [CategoryID]	INTEGER		FOREIGN KEY REFERENCES	ClothingCategories(CategoryID),
@@ -35,6 +39,7 @@ CREATE TABLE [ClothingSubCategories] (
 )
 GO
 
+/******* Object: Table clothing items ***********/
 CREATE TABLE [ClothingItems] (
 [ClothingID]	INTEGER			IDENTITY(1,1)	PRIMARY KEY	NOT NULL,
 [SubCatID]		INTEGER			FOREIGN KEY REFERENCES ClothingSubCategories(SubCatID),
@@ -48,6 +53,7 @@ CREATE TABLE [ClothingItems] (
 )
 GO
 
+/******* Object: Table user ratings ***********/
 CREATE TABLE [UserRatings] (
 [UserID]		INTEGER			FOREIGN KEY REFERENCES Users(UserID),
 [ClothingID]	INTEGER			FOREIGN KEY REFERENCES ClothingItems(ClothingID),
@@ -57,6 +63,8 @@ PRIMARY KEY (UserID,ClothingID)
 
 )
 GO
+
+/******* Object: Table favorites ***********/
 CREATE TABLE [UserFavorites] (
 [UserID]		INTEGER FOREIGN KEY REFERENCES		Users(UserID),
 [ClothingID]	INTEGER FOREIGN KEY REFERENCES ClothingItems(ClothingID),
@@ -66,6 +74,8 @@ GO
 
 --###################################### Inserting Data ############################################
 
+--Inserting data into all the tables
+
 INSERT INTO Users (FName, LName, PhoneNumber, Email, Username, [Password]) VALUES
     ('Alyssa','Melendez','440-281-6737','melendak@miamioh.edu', 'AlyssaKirstine','pass123'),
     ('Colin','Evans','614-425-4897','evansct@miamioh.edu','ColinTroy','alyssaismyfavorite'),
@@ -73,12 +83,14 @@ INSERT INTO Users (FName, LName, PhoneNumber, Email, Username, [Password]) VALUE
     ('Alex','Kwon','513-795-3644','kwonw@miamioh.edu','AlexNull','necnyc'),
     ('Yichen','Wang','513-593-5726','wangy99@miamioh.edu','YichenNull','321ssap');
 GO
+
 INSERT INTO ClothingCategories ([Name]) VALUES
     ('Women Summer'),
     ('Women Winter'),
     ('Men Summer'),
     ('Men Winter');
 GO
+
 INSERT INTO ClothingSubCategories (CategoryID, [Name]) VALUES
     (1, 'Skirts'),
     (1, 'Dresses'),
@@ -105,8 +117,8 @@ INSERT INTO ClothingSubCategories (CategoryID, [Name]) VALUES
     (4, 'Sweaters');   
 GO
     
-    INSERT INTO ClothingItems(SubCatID,UserID,Name,Description,Color,Size,[Condition],Picture)
-    VALUES(2, 1, 'Button-Down Denim Mini Dress',
+INSERT INTO ClothingItems(SubCatID,UserID,Name,Description,Color,Size,[Condition],Picture)
+VALUES(2, 1, 'Button-Down Denim Mini Dress',
 	  'Built from a washed denim in a button-down construction with a defined waist. ',
 	  'Green','6','brand new',
 	  'https://images.urbanoutfitters.com/is/image/UrbanOutfitters/45942638_030_b?$xlarge$&hei=900&qlt=80&fit=constrain'),
@@ -146,6 +158,9 @@ INSERT INTO UserRatings (UserID, ClothingID, Rating, [Description]) VALUES
 GO
 
 --###################################### Stored Procedures ####################################################
+
+--This allows us to add new users to the database
+--Returns 1 if the user is successfully added, 0 if there is an error
 CREATE PROCEDURE [dbo].[spAddUser]   
 	@Fname       NVARCHAR (50),
 	@Lname       NVARCHAR (50), 
@@ -163,7 +178,8 @@ AS
 	END
 GO
 
-
+--This allows us (users really) to add new articles of clothes into the database
+--Returns true (1) if the article is successfully added (which should be always)
 CREATE PROCEDURE [dbo].[spAddClothingItem]
 	@SubCatID    INT,          
 	@UserID      INT,           
@@ -179,6 +195,8 @@ AS
 RETURN 1
 GO
 
+-- This allows us to get a userID for a specific username, which will allow us to
+-- use it for other procedures later
 CREATE PROCEDURE [dbo].[spGetUserID]
 	@Username	VARCHAR(50)
 AS
@@ -189,6 +207,8 @@ RETURN 0
 
 GO
 
+--This is what is called when we want to delete an article of clothing from the 
+--database. Returns 1 (true) if successfully deleted, 0 otherwise
 CREATE PROCEDURE [dbo].[spDeleteClothingItem]
 	@ClothingID	 INT
 
@@ -200,6 +220,8 @@ AS
 
 GO 
 
+--This procedure allows us to update a specific article of clothing if something about it
+--changes. Returns 1 if successfully updated, 0 if not.
 CREATE PROCEDURE [dbo].[spUpdateClothingItem]
 	@ClothingID	 INT,
 	@SubCatID    INT,          
@@ -220,6 +242,8 @@ AS
 	END ELSE return 0
 GO
 
+--This allows users to add (or remove) a favorite on an article of clothing.
+--Will always return 1 saying that it was successful 
 CREATE PROCEDURE [dbo].[spAddOrRemoveFavorite]
     @UserID			INT,
     @ClothingID		INT
@@ -238,6 +262,7 @@ AS
 RETURN 1
 GO
 
+--This procedure will allow for the adding of a rating on an article of clothing
 CREATE PROCEDURE [dbo].[sp.AddRating]
     @UserID         INT,
     @ClothingID     INT,
@@ -257,6 +282,7 @@ AS
 RETURN 1
 GO
 
+--This will return all categories
 CREATE PROCEDURE [dbo].[spGetCategories]
 AS
     SELECT Name
@@ -264,6 +290,7 @@ AS
 RETURN 1
 GO
 
+--This will return all subcategories within a category
 CREATE PROCEDURE [dbo].[spGetSubCategories]
     @CategoryID INT
 AS
