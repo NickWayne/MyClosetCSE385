@@ -24,11 +24,11 @@ using System.Xml.Serialization;
 public class Helper {
 
 	#region =================================================================================================================== DATABASE OPERATIONS [DO NOT MODIFY]
-		private static string conn = System.Configuration.ConfigurationManager.ConnectionStrings["dbConnectionString"].ConnectionString;
-		private static List<SqlParameter> parameters = new List<SqlParameter>();
+		private  string conn = System.Configuration.ConfigurationManager.ConnectionStrings["dbConnectionString"].ConnectionString;
+		private  List<SqlParameter> parameters = new List<SqlParameter>();
 
 		// This method is used in conjuction with a "user defined table" in the database
-		public static DataTable sqlExec(string sql, DataTable dt, string udtblParam) {
+		public  DataTable sqlExec(string sql, DataTable dt, string udtblParam) {
 			DataTable ret = new DataTable();
 
 			try {
@@ -47,7 +47,7 @@ public class Helper {
 			return ret;
 		}
 
-		public static DataTable sqlExecQuery(string sql) {
+		public  DataTable sqlExecQuery(string sql) {
 			DataSet userDataset = new DataSet();
 			try {
 				using (SqlConnection objConn = new SqlConnection(conn)) {
@@ -67,11 +67,11 @@ public class Helper {
 			return userDataset.Tables[0];
 		}
 
-		public static DataTable sqlExec(string sql) {
+		public  DataTable sqlExec(string sql) {
 			return sqlExecDataTable(sql);
 		}
 
-		public static DataTable sqlExecDataTable(string sql) {
+		public  DataTable sqlExecDataTable(string sql) {
 			DataSet userDataset = new DataSet();
 			try {
 				using (SqlConnection objConn = new SqlConnection(conn)) {
@@ -91,7 +91,7 @@ public class Helper {
 			return userDataset.Tables[0];
 		}
 
-		public static DataSet sqlExecDataSet(string sql) {
+		public  DataSet sqlExecDataSet(string sql) {
 
 			DataSet userDataset = new DataSet();
 			try {
@@ -110,7 +110,7 @@ public class Helper {
 			return userDataset;
 		}
 
-		private static void setDataTableToError(DataTable tbl, Exception e) {
+		private  void setDataTableToError(DataTable tbl, Exception e) {
 
 			tbl.Columns.Add(new DataColumn("Error", typeof(Exception)));
 
@@ -121,14 +121,14 @@ public class Helper {
 			} catch (Exception) { }
 		}
 
-		public static void addParam(string name, object value) {
+		public  void addParam(string name, object value) {
 		parameters.Add(new SqlParameter(name, value));
 	}
 	#endregion
 
 
 	#region =================================================================================================================== SERIALIZATION OPERATIONS [DO NOT MODIFY]
-		private static List<Dictionary<string, object>> getTableRows(DataTable dt) {
+		private  List<Dictionary<string, object>> getTableRows(DataTable dt) {
 			List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
 			Dictionary<string, object> row;
 			row = new Dictionary<string, object>();
@@ -142,7 +142,7 @@ public class Helper {
 		}
 
 		// Streams out a JSON string
-		public static void streamJson(string jsonString) {
+		public  void streamJson(string jsonString) {
 			try {
 				HttpContext.Current.Response.Clear();
 				HttpContext.Current.Response.ContentType = "application/json";
@@ -156,7 +156,7 @@ public class Helper {
 		}
 
 		// Simple method to serialize an object into a JSON string and write it to the Response Stream
-		public static void serialize(Object obj) {
+		public  void serialize(Object obj) {
 			try {
 				streamJson(new JavaScriptSerializer().Serialize(obj));
 			} catch (Exception e) {
@@ -165,7 +165,7 @@ public class Helper {
 		}
 
 		// Generate and serialize a single row from a returned data table. Method will only return the first row - even if there are more.
-		public static void serializeSingleDataTableRow(DataTable dt) {
+		public  void serializeSingleDataTableRow(DataTable dt) {
 			Dictionary<string, object> row = new Dictionary<string, object>();
 
 			if (dt.Rows.Count > 0)
@@ -175,12 +175,12 @@ public class Helper {
 		}
 
 		// Serialize an entire table retreived from a data call
-		public static void serializeDataTable(DataTable dt) {
+		public  void serializeDataTable(DataTable dt) {
 			serialize(getTableRows(dt));
 		}
 
 		// Serialize an multiple tables retreived from a data call
-		public static void serializeDataSet(DataSet ds) {
+		public  void serializeDataSet(DataSet ds) {
 			List<object> ret = new List<object>();
 
 			foreach (DataTable dt in ds.Tables)
@@ -189,7 +189,7 @@ public class Helper {
 		}
 
 		// Just a test to see if we can take an object to XML status
-		public static void serializeXML<T>(T value) {
+		public  void serializeXML<T>(T value) {
 			string ret = "";
 
 			if (value != null) {
@@ -212,13 +212,13 @@ public class Helper {
 		}
 
 		// Serialize a dictionary object to avoid having to create more classes
-		public static void serializeDictionary(Dictionary<object, object> dic) {
+		public  void serializeDictionary(Dictionary<object, object> dic) {
 			serialize(dic.ToDictionary(item => item.Key.ToString(), item => item.Value.ToString()));
 		}
 
 		// Probably don't need this as one can just type "serialize(object to serialize);" but if every we do we have it.   
 		// Not sure it will work for objects that have arrays of other objects though...
-		public static void serializeObject(Object obj) {
+		public  void serializeObject(Object obj) {
 			Dictionary<string, object> row = new Dictionary<string, object>();
 			row = new Dictionary<string, object>();
 			var prop = obj.GetType().GetProperties();
@@ -233,7 +233,7 @@ public class Helper {
 	    // NOTE: we need to use the NuGet Package Manager and import Newtonsoft.Json for this to work...
 	    //			Go to Tools -> NuGet Package Manager -> Manage NeGet Packages for Solution... -> Browse
 	    //			Enter "Newtonsoft.Json" and it should be the first on the list.  Install this package.
-	    public static T _download_serialized_json_data<T>(string url) where T : new() {
+	    public  T _download_serialized_json_data<T>(string url) where T : new() {
 		    using (var w = new WebClient()) {
 			    try { return JsonConvert.DeserializeObject<T>(w.DownloadString(url)); } catch (Exception) { return new T(); }
 		    }

@@ -172,6 +172,7 @@ AS
 	IF NOT EXISTS(SELECT NULL FROM Users WHERE Email = @Email OR Username = @Username) BEGIN
 		INSERT INTO Users ([Fname], [Lname], [PhoneNumber],	[Email], [Username], [Password]) VALUES
 			(@Fname, @Lname, @PhoneNumber, @Email, @Username, @Password)
+		SELECT [UserID] = @@IDENTITY;
 		RETURN 1
 	END ELSE BEGIN
 		RETURN 0

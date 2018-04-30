@@ -1,47 +1,35 @@
 $(document).ready(function () {
-	values =	{	"userid": inputUserID.val(), 
+    values =	{	"userid": document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1")
 				};
-	ajax("getClothingItems", values , function (data) {
+	ajax("getUserClothingItems", values, function (data) {
 		var clothingcontainer = $("#clothingItems");
-		var toadd = "<div class='row'>";
-		var count = 1
+		var toadd = "";
 		$.each(data, function (index, val) {
-			if (count > 3){
-				toadd += "</div>";
-				count = 1;
-				clothingcontainer.append(toadd)
-				toadd = "";
-			}else{
-				toadd += "<div class='col-md-4'><div class='card mb-4 box-shadow'>";
-				toadd += "<img class='card-img-top' src='" + val.Picture + "' alt='Card image cap'>";
-				toadd += "<div class='card-body'><h3><a style='color: #878E95' href='clothing.html'>" + val.Name + "</a></h3>";
-				toadd += "<p class='card-text'>" + val.Description + "</p>";
-				toadd += "<div class='btn-group'><button type='button' class='btn btn-sm btn-outline-secondary'>Favorite</button><button type='button' class='btn btn-sm btn-outline-secondary'>Rate</button></div>";
-				toadd += "<small class='text-muted'>" + val.categoryName + "|" + val.subCategoryName + "</small>";
-				toadd += "</div></div></div></div>";
-			}
+		    toadd += "<div class='col-md-4'><div class='card mb-4 box-shadow'>";
+		    toadd += "<img class='card-img-top' src='" + val.Picture + "' alt='Card image cap'>";
+		    toadd += "<div class='card-body'><h3><a style='color: #878E95' href='clothing.html'>" + val.Name + "</a></h3>";
+		    toadd += "<p class='card-text'>" + val.Description + "</p>";
+		    toadd += "<div class='btn-group'><button type='button' class='btn btn-sm btn-outline-secondary'>Favorite</button><button type='button' class='btn btn-sm btn-outline-secondary'>Rate</button></div>";
+		    toadd += "<small class='text-muted float-right'>" + val.categoryName + "|" + val.subCategoryName + "</small>";
+		    toadd += "</div></div></div></div>";
+		    clothingcontainer.append(toadd);
+		    toadd = "";
 		});
 	});
 
-	ajax("getClothingItems", values , function (data) {
+	ajax("getUserFavorites", values, function (data) {
 		var favoritescontainer = $("#favoriteItems");
-		var toadd = "<div class='row'>";
-		var count = 1
+		var toadd = "";
 		$.each(data, function (index, val) {
-			if (count > 3){
-				toadd += "</div>";
-				count = 1;
-				favoritescontainer.append(toadd)
-				toadd = "";
-			}else{
-				toadd += "<div class='col-md-4'><div class='card mb-4 box-shadow'>";
-				toadd += "<img class='card-img-top' src='" + val.Picture + "' alt='Card image cap'>";
-				toadd += "<div class='card-body'><h3><a style='color: #878E95' href='clothing.html'>" + val.Name + "</a></h3>";
-				toadd += "<p class='card-text'>" + val.Description + "</p>";
-				toadd += "<div class='btn-group'><button type='button' class='btn btn-sm btn-outline-secondary'>Favorite</button><button type='button' class='btn btn-sm btn-outline-secondary'>Rate</button></div>";
-				toadd += "<small class='text-muted'>" + val.categoryName + "|" + val.subCategoryName + "</small>";
-				toadd += "</div></div></div></div>";
-			}
+		    toadd += "<div class='col-md-4'><div class='card mb-4 box-shadow'>";
+		    toadd += "<img class='card-img-top' src='" + val.Picture + "' alt='Card image cap'>";
+		    toadd += "<div class='card-body'><h3><a style='color: #878E95' href='clothing.html'>" + val.Name + "</a></h3>";
+		    toadd += "<p class='card-text'>" + val.Description + "</p>";
+		    toadd += "<div class='btn-group'><button type='button' class='btn btn-sm btn-outline-secondary'>Favorite</button><button type='button' class='btn btn-sm btn-outline-secondary'>Rate</button></div>";
+		    toadd += "<small class='text-muted float-right'>" + val.categoryName + "|" + val.subCategoryName + "</small>";
+		    toadd += "</div></div></div></div>";
+		    clothingcontainer.append(toadd);
+		    toadd = "";
 		});
 	});
 	

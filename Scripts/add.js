@@ -2,12 +2,12 @@ $(document).ready(function () {
 	$('#addItem').click(function () {
 		values =	{	"subcat": inputSubCategory.val(), 
 						"userid": inputUserID.val(), 
-						"name": inputName.value(), 
-						"description": picture.value(),
-						"color": inputColor.value(),
-						"size": inputSize.value(),
-						"condtion": inputCondition.value(),
-						"picture": inputPicture.value(),
+						"name": inputName.val(), 
+						"description": picture.val(),
+						"color": inputColor.val(),
+						"size": inputSize.val(),
+						"condtion": inputCondition.val(),
+						"picture": inputPicture.val(),
 					};
 		ajax("addClothingItem", values , function (data) {
 			alert("Clothing Item Added!");

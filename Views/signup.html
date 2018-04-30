@@ -6,6 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="../Scripts/signup.js"></script>
 </head>
 <body>
     <header>
@@ -31,31 +32,29 @@
     </header>
     <main role="main">
         <div class="container" style="margin-top: 50px; margin-bottom: 50px;">
-            <form class="form-signin">
                 <h2 class="form-signin-heading">Create Account</h2>
 
                 <label for="inputPassword" class="sr-only">First Name</label>
-                <input type="name" id="inputName" class="form-control" placeholder="First name" required>
+                <input type="text" id="inputFName" class="form-control" placeholder="First name" required>
 
                 <label for="inputPassword" class="sr-only">Last Name</label>
-                <input type="name" id="inputName" class="form-control" placeholder="Last name" required>
+                <input type="text" id="inputLName" class="form-control" placeholder="Last name" required>
 
                 <label for="inputPassword" class="sr-only">Phone Number</label>
-                <input type="name" id="inputName" class="form-control" placeholder="Phone Number" required>
+                <input type="text" id="inputPhone" class="form-control" placeholder="Phone Number" required>
 
                 <label for="inputEmail" class="sr-only">Email address</label>
                 <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 
                 <label for="inputPassword" class="sr-only">Username</label>
-                <input type="name" id="inputName" class="form-control" placeholder="Username" required>
+                <input type="text" id="inputUser" class="form-control" placeholder="Username" required>
 
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+                <button class="btn btn-lg btn-primary btn-block" id="createAccount">Sign up</button>
 
                 <p>Already have an account? <a href="login.html">Login</a></p>
-            </form>
         </div>
         <!-- /container -->
     </main>
