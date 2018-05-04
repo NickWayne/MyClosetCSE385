@@ -208,6 +208,17 @@ RETURN 0
 
 GO
 
+CREATE PROCEDURE [dbo].[spLogin]
+	@Username    VARCHAR (50),  
+	@Password    VARCHAR (50)
+AS
+	SELECT UserID
+	FROM Users
+	WHERE Username = @Username AND Password = @Password
+RETURN 0
+
+GO
+
 --This is what is called when we want to delete an article of clothing from the 
 --database. Returns 1 (true) if successfully deleted, 0 otherwise
 CREATE PROCEDURE [dbo].[spDeleteClothingItem]
@@ -317,7 +328,8 @@ GO
 -- get all clothing items
 CREATE PROCEDURE [dbo].[spGetAllClothing]
 AS
-    SELECT  c.CategoryID,
+    SELECT  i.ClothingID,
+			c.CategoryID,
             i.SubCatID,
             i.Name,
             i.Description,
@@ -331,7 +343,8 @@ GO
 CREATE PROCEDURE [dbo].[spGetUserFavoritedClothing]
 	@UserID INT
 AS
-    SELECT  c.CategoryID,
+    SELECT  i.ClothingID,
+			c.CategoryID,
 			i.SubCatID,
             i.UserID,
 			i.Name,
@@ -349,7 +362,8 @@ GO
 CREATE PROCEDURE [dbo].[spGetUserClothing]
 	@UserID INT
 AS
-    SELECT  c.CategoryID,
+    SELECT  i.ClothingID,
+			c.CategoryID,
 			i.SubCatID,
             i.UserID,
 			i.Name,
@@ -365,7 +379,8 @@ GO
 CREATE PROCEDURE [dbo].[spGetSpecificClothing]
 	@ClothingID INT
 AS
-    SELECT  c.CategoryID,
+    SELECT  i.ClothingID,
+			c.CategoryID,
 			i.SubCatID,
             i.UserID,
 			i.Name,

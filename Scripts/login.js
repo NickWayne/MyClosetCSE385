@@ -1,24 +1,12 @@
 ﻿$(document).ready(function () {
     values = {
-        "Fname": inputFName.value(),
-        "Lname": inputLName.value(),
-        "phone": inputPhone.value(),
-        "email": inputEmail.value(),
-        "username": inputUser.value(),
-        "password": inputPassword.value()
+        "username": $("#inputUser").val(),
+        "password": $("#inputPassword").val()
     };
-    ajax("addUser", values, function (data) {
-        
+    ajax("loginUser", values, function (data) {
+        document.cookie = "userid:" + data[0].UserID;
     });
 
-    values = {
-        "username": inputUser.value(),
-        "password": inputPassword.value()
-    };
-
-    ajax("getuserID", values, function (data) {
-        document.cookie = "username:" + data[0].Username;
-    });
     //===================================================================================================
     // Generic method for AJAX calls
     //===================================================================================================

@@ -61,11 +61,12 @@ public class MyClosetAPI : System.Web.Services.WebService{
         serializeDataTable(sqlExec("spAddClothingItem"));
     }
 
-    [WebMethod(Description = "Get the userid from the username and password")]
-    public void getUserID(string username)
+    [WebMethod(Description = "Login the user to the website")]
+    public void loginUser(string username, string password)
     {
         addParam("@Username", username);
-        serializeDataTable(sqlExec("spGetUserID"));
+        addParam("@Password", password);
+        serializeDataTable(sqlExec("spLogin"));
     }
 
     [WebMethod(Description = "Get the clothing items from the db")]

@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	$('#addItem').click(function () {
 		values =	{	"subcat": inputSubCategory.val(), 
-						"userid": inputUserID.val(), 
+						"userid": document.cookie.replace(/(?:(?:^|.*;\s*)userid\s*\=\s*([^;]*).*$)|^.*$/, "$1"),
 						"name": inputName.val(), 
 						"description": picture.val(),
 						"color": inputColor.val(),

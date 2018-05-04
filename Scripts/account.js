@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    values =	{	"userid": document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1")
+    values =	{	"userid": document.cookie.replace(/(?:(?:^|.*;\s*)userid\s*\=\s*([^;]*).*$)|^.*$/, "$1")
 				};
 	ajax("getUserClothingItems", values, function (data) {
 		var clothingcontainer = $("#clothingItems");
