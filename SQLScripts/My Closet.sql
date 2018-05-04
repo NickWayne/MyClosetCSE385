@@ -305,6 +305,17 @@ AS
 		RETURN 0;
 	END
 RETURN 1
+
+GO
+-- This procedure will return rating info for one clothing item
+CREATE PROCEDURE [dbo].[spGetRating]
+	@ClothingID INT
+AS
+	SELECT u.Fname,u.Lname, ur.Rating, ur.Description
+	FROM UserRatings ur 
+		 JOIN ClothingItems ci ON ur.ClothingID = ci.ClothingID 
+		 JOIN Users u ON u.UserID = ur.UserID
+	WHERE ur.ClothingID = @ClothingID
 GO
 
 --This will return all categories
