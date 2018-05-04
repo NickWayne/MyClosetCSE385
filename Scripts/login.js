@@ -1,10 +1,13 @@
 ﻿$(document).ready(function () {
-    values = {
-        "username": $("#inputUser").val(),
-        "password": $("#inputPassword").val()
-    };
-    ajax("loginUser", values, function (data) {
-        document.cookie = "userid:" + data[0].UserID;
+
+    $('#login').click(function () {
+        values = {
+            "username": $("#inputUser").val(),
+            "password": $("#inputPassword").val()
+        };
+        ajax("loginUser", values, function (data) {
+            document.cookie = "userid:" + data[0].UserID;
+        });
     });
 
     //===================================================================================================
@@ -13,7 +16,7 @@
     function ajax(method, data, fn) {
         $.ajax({
             type: 'POST',
-            url: 'MyClosetAPI.asmx/' + method,
+            url: '../MyClosetAPI.asmx/' + method,
             dataType: 'json',
             data: data,
             success: fn
