@@ -88,7 +88,14 @@ public class MyClosetAPI : System.Web.Services.WebService{
         addParam("@UserID", userid);
         serializeDataTable(sqlExec("spGetUserFavoritedClothing"));
     }
-    
+
+    [WebMethod(Description = "Get a specific clothing item from the id")]
+    public void getSpecificClothingItem(int clothingid)
+    {
+        addParam("@ClothingID", clothingid);
+        serializeDataTable(sqlExec("spGetSpecificClothing"));
+    }
+
     [WebMethod(Description = "Add a rating to the database")]
     public void addRating(int UserID, int ClothingID, int Rating, string Description)
     {
@@ -97,6 +104,21 @@ public class MyClosetAPI : System.Web.Services.WebService{
         addParam("@Rating", Rating);
         addParam("@Description", Description);
         serializeDataTable(sqlExec("spAddRating"));
+    }
+
+    [WebMethod(Description = "get ratings from the db")]
+    public void getRatings(int ClothingID)
+    {
+        addParam("@ClothingID", ClothingID);
+        serializeDataTable(sqlExec("spGetRating"));
+    }
+
+    [WebMethod(Description = "add or remove favorite from db for the user")]
+    public void addOrRemoveFavorite(int UserID, int ClothingID)
+    {
+        addParam("@UserID", UserID);
+        addParam("@ClothingID", ClothingID);
+        serializeDataTable(sqlExec("spAddOrRemoveFavorite"));
     }
 
 }

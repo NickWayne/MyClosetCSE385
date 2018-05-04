@@ -20,7 +20,7 @@ $(document).ready(function () {
 	function ajax(method, data, fn) {
 		$.ajax({
 			type: 'POST',
-			url: 'MyClosetAPI.asmx/' + method,
+			url: '../MyClosetAPI.asmx/' + method,
 			dataType: 'json',
 			data: data,
 			success: fn

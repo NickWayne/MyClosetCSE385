@@ -10,8 +10,11 @@
             "password": $("#inputPassword").val()
         };
         ajax("addUser", values, function (data) {
-            document.cookie = "userid:" + data[0].UserID;
+            deleteAllCookies();
+            document.cookie = "userid=" + data[0].UserID + ";";
+            window.location.replace("index.html");
         });
+
     });
     //===================================================================================================
     // Generic method for AJAX calls

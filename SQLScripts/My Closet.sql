@@ -278,7 +278,7 @@ AS
 					WHERE	UserID = @UserID AND
 							ClothingID = @ClothingID
 					) BEGIN
-        INSERT INTO UserFavories (UserID, ClothingID)
+        INSERT INTO UserFavorites (UserID, ClothingID)
         VALUES (@UserID, @ClothingID)
 	END ELSE BEGIN
         DELETE FROM UserFavorites
@@ -340,14 +340,16 @@ GO
 CREATE PROCEDURE [dbo].[spGetAllClothing]
 AS
     SELECT  i.ClothingID,
-			c.CategoryID,
-            i.SubCatID,
+			[subCat] = c.Name,
+			[cat] = ct.Name,
             i.Name,
             i.Description,
             i.Picture
     FROM ClothingItems i
         JOIN ClothingSubCategories c
-            ON (c.SubCatID = i.SubCatID)
+			ON (c.SubCatID = i.SubCatID)
+		JOIN ClothingCategories ct
+			ON (ct.CategoryID = c.CategoryID)
 GO
 
 -- get user's favorites
@@ -391,8 +393,10 @@ CREATE PROCEDURE [dbo].[spGetSpecificClothing]
 	@ClothingID INT
 AS
     SELECT  i.ClothingID,
-			c.CategoryID,
-			i.SubCatID,
+			u.Fname,
+			u.Lname,
+			[subCat] = c.Name,
+			[cat] = ct.Name,
             i.UserID,
 			i.Name,
             i.Description,
@@ -403,5 +407,9 @@ AS
     FROM ClothingItems i
 		JOIN ClothingSubCategories c
 			ON (c.SubCatID = i.SubCatID)
+		JOIN ClothingCategories ct
+			ON (ct.CategoryID = c.CategoryID)
+		JOIN Users u
+			ON (u.userID = i.UserID)
 	WHERE i.ClothingID = @ClothingID
 GO

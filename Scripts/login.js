@@ -6,7 +6,9 @@
             "password": $("#inputPassword").val()
         };
         ajax("loginUser", values, function (data) {
-            document.cookie = "userid:" + data[0].UserID;
+            deleteAllCookies();
+            createCookie("userid", data[0].UserID, 1);
+            window.location.replace("index.html");
         });
     });
 

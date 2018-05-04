@@ -7,12 +7,15 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="../Scripts/cookies.js"></script>
+    <script src="../Scripts/pageUpdates.js"></script>
+    <script src="../Scripts/add.js"></script>
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">My Closet</a>
+            <a class="navbar-brand" href="index.html">My Closet</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -23,7 +26,7 @@
                     </li>
                 </ul>
                 <span class="navbar-text">
-                    <a class="btn btn-outline-primary" href="account.html">My Account</a>
+                    <a id="accountButton" class="btn btn-outline-primary" href="account.html">My Account</a>
                 </span>
             </div>
         </nav>
@@ -34,28 +37,28 @@
                 <h2 class="form-signin-heading">Add Clothing Item</h2>
 
                 <label for="inputPassword" class="sr-only">Category</label>
-                <input type="text" id="inputName" class="form-control" placeholder="Category" required>
+                <input type="text" id="inputCategory" class="form-control" placeholder="Category" required>
 
                 <label for="inputPassword" class="sr-only">Subcategory</label>
-                <input type="text" id="inputName" class="form-control" placeholder="Subcategory" required>
+                <input type="text" id="inputSubcategory" class="form-control" placeholder="Subcategory" required>
 
                 <label for="inputPassword" class="sr-only">Name</label>
                 <input type="text" id="inputName" class="form-control" placeholder="Name" required>
 
                 <label for="inputPassword" class="sr-only">Description</label>
-                <input type="text" id="inputName" class="form-control" placeholder="Description" required>
+                <input type="text" id="inputDescription" class="form-control" placeholder="Description" required>
 
                 <label for="inputPassword" class="sr-only">Color</label>
-                <input type="text" id="inputName" class="form-control" placeholder="Color" required>
+                <input type="text" id="inputColor" class="form-control" placeholder="Color" required>
 
                 <label for="inputEmail" class="sr-only">Size</label>
                 <input type="email" id="inputEmail" class="form-control" placeholder="Size" required autofocus>
 
                 <label for="inputPassword" class="sr-only">Condition</label>
-                <input type="text" id="inputName" class="form-control" placeholder="Condition" required>
+                <input type="text" id="inputCondition" class="form-control" placeholder="Condition" required>
 
                 <label for="inputPassword" class="sr-only">Picture</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Link to picture" required>
+                <input type="text" id="inputPicture" class="form-control" placeholder="Link to picture" required>
 
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Add Item</button>
             </form>

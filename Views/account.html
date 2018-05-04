@@ -6,6 +6,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootsrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="../Scripts/cookies.js"></script>
+    <script src="../Scripts/pageUpdates.js"></script>
+    <script src="../Scripts/account.js"></script>
 </head>
 <body>
     <header>
@@ -17,11 +20,11 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                 </ul>
                 <span class="navbar-text">
-                    <a class="btn btn-outline-primary" href="account.html">My Account</a>
+                    <a id="accountButton" class="btn btn-outline-primary" href="account.html">My Account</a>
                 </span>
             </div>
         </nav>
@@ -33,7 +36,7 @@
                 <p class="lead text-muted">Here you can add new items to your closet or view your personal and favorited items below.</p>
                 <p>
                     <a href="add.html" class="btn btn-primary">Add Clothing</a>
-                    <a href="index.html" class="btn btn-secondary">Logout</a>
+                    <a id="logout" class="btn btn-secondary">Logout</a>
                 </p>
             </div>
         </section>
@@ -41,107 +44,12 @@
             <div class="container">
                 <h1>Your Clothes</h1>
                 <div class="row" id="clothingItems">
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
-                            <div class="card-body">
-                                <h3><a style="color: #878E95" href="clothing.html">Clothing Item Name</a></h3>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Rate</button>
-                                    </div>
-                                    <small class="text-muted">Category | Subcategory</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
-                            <div class="card-body">
-                                <h3><a style="color: #878E95" href="clothing.html">Clothing Item Name</a></h3>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Rate</button>
-                                    </div>
-                                    <small class="text-muted">Category | Subcategory</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
-                            <div class="card-body">
-                                <h3><a style="color: #878E95" href="clothing.html">Clothing Item Name</a></h3>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Rate</button>
-                                    </div>
-                                    <small class="text-muted">Category | Subcategory</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
                 <!--end your clothes section-->
                 <h1>Favorited Clothes</h1>
                 <div class="row" id="favoriteItems">
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
-                            <div class="card-body">
-                                <h3><a style="color: #878E95" href="clothing.html">Clothing Item Name</a></h3>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Rate</button>
-                                    </div>
-                                    <small class="text-muted">Category | Subcategory</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
-                            <div class="card-body">
-                                <h3><a style="color: #878E95" href="clothing.html">Clothing Item Name</a></h3>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Rate</button>
-                                    </div>
-                                    <small class="text-muted">Category | Subcategory</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="http://via.placeholder.com/300x200" alt="Card image cap">
-                            <div class="card-body">
-                                <h3><a style="color: #878E95" href="clothing.html">Clothing Item Name</a></h3>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Rate</button>
-                                    </div>
-                                    <small class="text-muted">Category | Subcategory</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end favorited clothes section-->
+          
                 </div>
             </div>
         </div>
