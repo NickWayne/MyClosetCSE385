@@ -288,7 +288,7 @@ RETURN 1
 GO
 
 --This procedure will allow for the adding of a rating on an article of clothing
-CREATE PROCEDURE [dbo].[sp.AddRating]
+CREATE PROCEDURE [dbo].[spAddRating]
     @UserID         INT,
     @ClothingID     INT,
     @Rating         INT,
