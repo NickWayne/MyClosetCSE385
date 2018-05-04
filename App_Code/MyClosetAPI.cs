@@ -88,5 +88,15 @@ public class MyClosetAPI : System.Web.Services.WebService{
         addParam("@UserID", userid);
         serializeDataTable(sqlExec("spGetUserFavoritedClothing"));
     }
+    
+    [WebMethod(Description = "Add a rating to the database")]
+    public void addRating(int UserID, int ClothingID, int Rating, string Description)
+    {
+        addParam("@UserID", UserID);
+        addParam("@ClothingID", ClothingID);
+        addParam("@Rating", Rating);
+        addParam("@Description", Description);
+        serializeDataTable(sqlExec("spAddRating"));
+    }
 
 }
