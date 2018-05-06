@@ -121,4 +121,17 @@ public class MyClosetAPI : System.Web.Services.WebService{
         serializeDataTable(sqlExec("spAddOrRemoveFavorite"));
     }
 
+    [WebMethod(Description = "Get Categories from db")]
+    public void getCategories()
+    {
+        serializeDataTable(sqlExec("spGetCategories"));
+    }
+
+    [WebMethod(Description = "Get subCategories from db")]
+    public void getSubCategories(int catID)
+    {
+        addParam("@CategoryID", catID);
+        serializeDataTable(sqlExec("spGetSubCategories"));
+    }
+
 }

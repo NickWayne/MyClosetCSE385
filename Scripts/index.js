@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     ajax("getClothingItems", {}, function (data) {
-        console.log(data);
         var clothingcontainer = $("#clothingItems");
         var toadd = "";
         $.each(data, function (index, val) {
@@ -9,7 +8,7 @@
                 toadd += "<div class='card-body'><h3><a style='color: #878E95' href='clothing.html' class='clothingitem'>" + val.Name + "</a></h3>";
 				toadd += "<input hidden id=" + val.ClothingID + "></input>";
                 toadd += "<p class='card-text'>" + val.Description + "</p>";
-                toadd += "<div class='btn-group'><button type='button' class='btn btn-sm btn-outline-secondary favorite'>Favorite</button><button type='button' class='btn btn-sm btn-outline-secondary rate'>Rate</button></div>";
+                toadd += "<button type='button' class='btn btn-sm btn-outline-secondary rate'>Rate</button>";
                 toadd += "<small class='text-muted float-right'>" + val.cat + "|" + val.subCat + "</small>";
                 toadd += "</div></div></div></div>";
                 clothingcontainer.append(toadd);

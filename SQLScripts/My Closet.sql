@@ -321,7 +321,7 @@ GO
 --This will return all categories
 CREATE PROCEDURE [dbo].[spGetCategories]
 AS
-    SELECT Name
+    SELECT CategoryID, Name
     FROM ClothingCategories
 RETURN 1
 GO
@@ -330,7 +330,7 @@ GO
 CREATE PROCEDURE [dbo].[spGetSubCategories]
     @CategoryID INT
 AS
-    SELECT Name
+    SELECT SubCatID, Name
     FROM ClothingSubCategories
     WHERE CategoryID = @CategoryID
 RETURN 1

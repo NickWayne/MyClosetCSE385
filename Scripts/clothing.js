@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    console.log(document.cookie)
     ajax("getSpecificClothingItem", { "clothingid": getCookie("clothingid") }, function (data) {
         var clothingcontainer = $("#clothingItem");
         var toadd = "";
@@ -23,9 +22,9 @@
         var toadd = "";
         $.each(data, function (index, val) {
             toadd += "<div class='rating'>";
-            toadd += "<p>" + val.Rating + "/10 Stars</p>"
-            toadd += "<p>" + val.Description + "</p>"
-            toadd += "<p><strong>" + val.Fname + " " + val.Lname + "</strong></p>"
+            toadd += "<p>" + val.Rating + "/10 Stars</p>";
+            toadd += "<p>" + val.Description + "</p>";
+            toadd += "<p><strong>" + val.Fname + " " + val.Lname + "</strong></p>";
             toadd += "</div>";
             raitings.find("#addRaiting").before(toadd);
             toadd = "";
