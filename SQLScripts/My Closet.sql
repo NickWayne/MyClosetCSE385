@@ -318,6 +318,8 @@ CREATE PROCEDURE [dbo].[spGetUserClothing]
 AS
     SELECT  i.ClothingID,
 			c.CategoryID,
+			[subCat] = c.Name,
+			[cat] = ct.Name,
 			i.SubCatID,
             i.UserID,
 			i.Name,
@@ -326,6 +328,8 @@ AS
     FROM ClothingItems i
 		JOIN ClothingSubCategories c
 			ON (c.SubCatID = i.SubCatID)
+		JOIN ClothingCategories ct
+			ON (ct.CategoryID = c.CategoryID)
 	WHERE i.UserID = @UserID
 GO
 

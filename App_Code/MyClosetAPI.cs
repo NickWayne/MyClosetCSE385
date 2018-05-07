@@ -134,4 +134,12 @@ public class MyClosetAPI : System.Web.Services.WebService{
         serializeDataTable(sqlExec("spGetSubCategories"));
     }
 
+    [WebMethod(Description = "Get subCategories from db")]
+    public void deleteClothingItem(int clothingID, int userID)
+    {
+        addParam("@ClothingID", clothingID);
+        addParam("@UserID", userID);
+        serializeDataTable(sqlExec("spDeleteClothingItem"));
+    }
+
 }
