@@ -6,7 +6,10 @@ We are using HTML (website) for our front end, these files are provided within t
 
 ------------------
 
-SETUP: Download the database and web application from the My Closet GitHub page. You can do this by running 'git clone https://github.com/NickWayne/MyClosetCSE385' within your computer's command line. Open up the folder in Visual Studio. Navigate to the 'index.html' file and click the "Google Chrome" button. Google Chrome will start up and the My Closet web application will start running.
+SETUP: In order to run the website, you will need to have Microsoft Visual Studio installed with SQLServer capabilities. Open this folder as a website within visual studio, find the index.html file (within the views folder), and hit run at the top. Once in the application you will be able to create an account, log in, add clothing items, view clothing items, rate clothing items, and delete any item of clothing that you have added.
+
+To get the most up to date version of the code, you will need to pull from 
+https://github.com/NickWayne/MyClosetCSE385.git
 
 ------------------
 
