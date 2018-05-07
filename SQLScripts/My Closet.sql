@@ -64,14 +64,6 @@ PRIMARY KEY (UserID,ClothingID)
 )
 GO
 
-/******* Object: Table favorites ***********/
-CREATE TABLE [UserFavorites] (
-[UserID]		INTEGER FOREIGN KEY REFERENCES		Users(UserID),
-[ClothingID]	INTEGER FOREIGN KEY REFERENCES ClothingItems(ClothingID),
-PRIMARY KEY (UserID,ClothingID)
-)
-GO
-
 --###################################### Inserting Data ############################################
 
 --Inserting data into all the tables
@@ -137,16 +129,6 @@ VALUES(2, 1, 'Button-Down Denim Mini Dress',
 	  'Original + iconic wheat boot from the experts at Timberland. ',
 	  'yellow','9','brand new',
 	  'https://images.urbanoutfitters.com/is/image/UrbanOutfitters/26847640_016_d?$medium$&qlt=80&fit=constrain');
-GO
-      
-INSERT INTO UserFavorites (UserID, ClothingID) VALUES
-	(1,1),
-	(2,1),
-	(2,2),
-	(2,3),
-	(2,4),
-	(3,4),
-	(4,2);
 GO
 
 INSERT INTO UserRatings (UserID, ClothingID, Rating, [Description]) VALUES
@@ -229,7 +211,6 @@ AS
 	AND EXISTS (SELECT NULL FROM Users WHERE UserID = @UserID) BEGIN
 	
 	DELETE FROM UserRatings WHERE ClothingID = @ClothingID
-	DELETE FROM UserFavorites WHERE ClothingID = @ClothingID
 	DELETE FROM ClothingItems WHERE ClothingID = @ClothingID
 	return 1
 	END ELSE return 0
@@ -264,27 +245,6 @@ AS
 	WHERE ClothingID = @ClothingID
 	return 1
 	END ELSE return 0
-GO
-
-
---This allows users to add (or remove) a favorite on an article of clothing.
---Will always return 1 saying that it was successful 
-CREATE PROCEDURE [dbo].[spAddOrRemoveFavorite]
-    @UserID			INT,
-    @ClothingID		INT
-AS
-    IF NOT EXISTS ( SELECT NULL
-					FROM UserRatings
-					WHERE	UserID = @UserID AND
-							ClothingID = @ClothingID
-					) BEGIN
-        INSERT INTO UserFavorites (UserID, ClothingID)
-        VALUES (@UserID, @ClothingID)
-	END ELSE BEGIN
-        DELETE FROM UserFavorites
-        WHERE UserID = @UserID AND ClothingID = @ClothingID
-	END
-RETURN 1
 GO
 
 --This procedure will allow for the adding of a rating on an article of clothing
@@ -350,25 +310,6 @@ AS
 			ON (c.SubCatID = i.SubCatID)
 		JOIN ClothingCategories ct
 			ON (ct.CategoryID = c.CategoryID)
-GO
-
--- get user's favorites
-CREATE PROCEDURE [dbo].[spGetUserFavoritedClothing]
-	@UserID INT
-AS
-    SELECT  i.ClothingID,
-			c.CategoryID,
-			i.SubCatID,
-            i.UserID,
-			i.Name,
-            i.Description,
-            i.Picture
-    FROM ClothingItems i
-		JOIN ClothingSubCategories c
-			ON (c.SubCatID = i.SubCatID)
-		JOIN UserFavorites f
-			ON (i.ClothingID = f.ClothingID)
-	WHERE f.UserID = @UserID
 GO
 
 -- get user's clothing items

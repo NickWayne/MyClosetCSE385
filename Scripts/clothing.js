@@ -30,7 +30,16 @@
             toadd = "";
         });
     });
-
+    $('#btnAddRating').click(function () {
+        ajax("addRating", {
+            "UserID": getCookie("userid"),
+            "ClothingID": getCookie("clothingid"),
+            "Rating": $('#inputRating').val(),
+            "Description": $('#inputDescription').val()
+        }, function (data) {
+            window.location.replace("account.html");
+        });
+    });
     //===================================================================================================
     // Generic method for AJAX calls
     //===================================================================================================
