@@ -37,7 +37,7 @@
             "Rating": $('#inputRating').val(),
             "Description": $('#inputDescription').val()
         }, function (data) {
-            window.location.replace("account.html");
+            window.location.replace("clothing.html");
         });
     });
     //===================================================================================================
