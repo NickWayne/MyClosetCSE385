@@ -27,17 +27,16 @@ $(document).ready(function () {
 		        window.location.replace("account.html");
 		    });
 		});
+		$('.clothingitem, .rate').click(function () {
+		    var base = $(this);
+		    createCookie("clothingid", base.parent().parent().find("input").attr('id'), 1)
+		    window.location.replace("clothing.html");
+		});
 	});
 
     $("#logout").click(function () {
         deleteAllCookies();
         window.location.replace("index.html");
-    });
-
-    $('.clothingitem, .rate').click(function () {
-        var base = $(this);
-        createCookie("clothingid", base.parent().parent().find("input").attr('id'), 1)
-        window.location.replace("clothing.html");
     });
 	
 	//===================================================================================================
