@@ -11,6 +11,15 @@ as well as its description and its reviews. You can also rate and comment specif
 share your insights. If you like the clothing and wish to save it somewhere, you can favorite the 
 clothing and it will show up in your closet. 
 
-We are using HTML (website) for our front end, these files are provided within the views folder in this zip
-file. With this we will also be using .NET including C# files and xml. All of these items will 
-be connected to the database.
+We are using HTML (website) for our front end, these files are provided within the views folder in 
+this zip file. With this we will also be using .NET including C# files and xml. All of these items 
+will be connected to the database.
+
+To get the most up to date version of the code, you will need to pull from 
+https://github.com/NickWayne/MyClosetCSE385.git
+
+In order to run the website, you will need to have microsoft visual studio installed with SQL
+Server capabilities. Open this folder as a website within visual studio, find the index.html file
+(within the views folder), and hit run at the top. Once in the application you will be able to 
+create an account, log in, add clothing items, view clothing items, rate clothing items, and 
+delete any item of clothing that you have added.

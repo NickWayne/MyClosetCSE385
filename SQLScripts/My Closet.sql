@@ -218,34 +218,6 @@ AS
 GO 
 
 
---This procedure allows us to update a specific article of clothing if something about it
---changes. Returns 1 if successfully updated, 0 if not.
-CREATE PROCEDURE [dbo].[spUpdateClothingItem]
-	@ClothingID	 INT,
-	@SubCatID    INT,          
-	@UserID      INT,           
-	@Name        VARCHAR(50),  
-	@Description VARCHAR(MAX), 
-	@Color       VARCHAR(50),  
-	@Size        VARCHAR(50),  
-	@Condition   VARCHAR(50),
-	@Picture     NVARCHAR(MAX)
-AS
-	IF EXISTS (SELECT NULL 
-			   FROM ClothingItems c JOIN Users u ON  c.UserID = u.UserID
-			   WHERE ClothingID = @ClothingID) BEGIN
-	UPDATE ClothingItems 
-	SET SubCatID = isNULL(@SubCatID, SubCatID),
-		Name = isNULL(@Name, Name),
-		Description= isNULL(@Description,Description),
-		Color = isNULL(@Color, Color),
-		Size = isNULL(@Size ,Size),
-		Condition = isNULL(@Condition, Condition),
-		Picture = isNULL(@Picture,Picture)     
-	WHERE ClothingID = @ClothingID
-	return 1
-	END ELSE return 0
-GO
 
 --This procedure will allow for the adding of a rating on an article of clothing
 CREATE PROCEDURE [dbo].[spAddRating]
